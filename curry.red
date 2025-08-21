@@ -188,7 +188,7 @@ curry: function [
 ; 4. docstring generation
 
     if doc [ ; add docstring
-        insert remaining_args rejoin [ "Curried by: c! " (:fn) " " (mold curry_spec) ] 
+        insert remaining_args rejoin [ "Curried by: curry " (:fn) " " (mold curry_spec) ] 
     ]
 	
 ; 5. curried function construction:

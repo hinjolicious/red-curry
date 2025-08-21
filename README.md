@@ -94,7 +94,7 @@ half 10
 ```red
 square: curry/doc power [_ 2]
 help square
-;== "Curried by: c! power [_ 2]"
+;== "Curried by: curry power [_ 2]"
 ```
 
 ### Anonymous Copy
