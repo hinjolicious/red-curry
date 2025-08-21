@@ -165,6 +165,24 @@ print f 2 3 4 ; call the curried function and give it's open arguments: b, t1 an
 
 ---
 
+
+
+## 🔍 Feature Comparison with Other Languages & Libraries
+
+| Feature                               | `curry`(This Library) | Ramda.js | Haskell | Python `functools.partial` | Lodash FP |
+| ------------------------------------- | ----------------------- | -------- | ------- | ---------------------------- | --------- |
+| **Placeholder Support (`_`)** | ✅                      | ✅       | ❌      | ❌                           | ✅        |
+| **Argument Skipping**           | ✅                      | ✅       | ❌      | ❌                           | ✅        |
+| **Multiple Argument Fixing**    | ✅                      | ✅       | ✅      | ✅                           | ✅        |
+| **Refinement Support**          | ✅                      | ❌       | ❌      | ❌                           | ❌        |
+| **Multi-Argument Refinements**  | ✅                      | ❌       | ❌      | ❌                           | ❌        |
+| **Auto-Generated Docstrings**   | ✅                      | ❌       | ❌      | ❌                           | ❌        |
+| **Native Syntax Integration**   | ✅                      | ❌       | ❌      | ❌                           | ❌        |
+| **Anonymous Function Option**   | ✅                      | ❌       | ❌      | ❌                           | ❌        |
+| **Handles Native Functions**    | ✅                      | ✅       | ✅      | ✅                           |           |
+
+* The table is from an AI model asked about this library.
+
 ## 🛠 Limitations
 
 * Minimal error handling — errors are passed through to the original function or Red itself.
