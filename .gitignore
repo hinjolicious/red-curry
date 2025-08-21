@@ -1,0 +1,32 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Backup & temp files
+*.bak
+*.tmp
+*~
+*.swp
+
+# Editor/project files
+.vscode/
+.idea/
+*.code-workspace
+
+# Build artifacts (executables, libraries, logs, etc.)
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+*.log
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Ignore compiled Red binaries (produced by red -c/-r)
+*.reds
+*.lib
