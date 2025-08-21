@@ -92,16 +92,76 @@ half 10
 ### Docstring
 
 ```red
-square: curry/doc power [_ 2]
+square: curry/doc power [_ 2]  ; add docstring
 help square
-;== "Curried by: curry power [_ 2]"
+USAGE:
+     SQUARE number
+
+DESCRIPTION: 
+     Curried by: curry power [_ 2]. 
+     SQUARE is a function! value.
+
+ARGUMENTS:
+     number  
 ```
 
 ### Anonymous Copy
 
 ```red
-f: curry/anon bar [1 _ 3]
+foo: func [a b c][a + b + c]
+f1: curry foo [1 2]
+;== func [c][foo 1 2 c]   ; calling original function
+f1: curry/anon foo [1 2]  ; using annonymous copy
+;== func [c][func [a b c] [a + b + c] 1 2 c]
 ```
+
+### Multiple Currying
+
+```red
+foo: func [a b c d e f][a + b + c + d + e + f]	; original function
+f1: curry foo [1 2]				; curry it, fixed a and b
+;== func [c d e f][foo 1 2 c d e f]
+f2: curry f1 [_ _ 5 6]				; curry it again, now skip c and d, fix e and f
+;== func [c d][f1 c d 5 6]
+f2 3 4						; call f2, give open arguments c and d
+;== 21
+ 
+```
+
+### More complex example
+
+```red
+foo: function [
+	{a foo function}
+    a b [any-type!] c [any-type!] "just some vars"
+    /add1 r1 "a ref"
+    /add2 s1 [any-type!] s2 [any-type!] "with two args"
+    /add3 t1 t2 t3 "this has three"
+    /neg /double /square "some options"
+    /local l1 l2 l3
+    /extern x1 x2 x3 "what is this?"
+    return: [any-type!] "return val"
+][
+	; some actions
+    l1: 1 l2: 2 l3: 3
+    r: a + b + c
+    if add1 [r: r + r1]
+    if add2 [r: r + s1 + s2]
+    if add3 [r: r + t1 + t2 + t3]
+    if neg [r: negate r]
+    if double [r: r * 2]
+    if square [r: r ** 2]
+	r ; return this
+]
+; currying foo, fixing a, skip b, fix c
+; using refinement /add3 fixing only t3 and more refinements: /square and /neg
+f: c! foo [1 _ 2 /add3 _ _ 3 /square/neg]
+;== func [b t1 t2][foo/add3/square/neg 1 b 2 t1 t2 3]
+
+print f 2 3 4 ; call the curried function and give it's open arguments: b, t1 and t2
+;== 225
+```
+
 
 ---
 
