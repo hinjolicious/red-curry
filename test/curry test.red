@@ -1,6 +1,8 @@
 Red[]
 
-#include %curry.Red
+; some tests
+
+#include %..\curry.Red
 
 foo: function [
 	{a foo function}
