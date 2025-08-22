@@ -2,7 +2,9 @@ Red[]
 
 ; some tests
 
-#include %..\curry.Red
+#include %..\curry.Red ; include the red curry library
+
+;-- a test function with multiple arguments and refinements
 
 foo: function [
 	{a foo function}
@@ -27,49 +29,61 @@ foo: function [
 	r ; return this
 ]
 
-f: c! foo [1]
-;== func [b c][foo 1 b c]
+;-- "curry" is the name of this currying function, "c!" is a shortcut for it. you can use "curry" or "c!" in your code
 
-f: c!/doc foo [1]
+;-- basic usage
+
+f: c! foo [1] ; this will curry foo and fixing its first argument (a) to 1
+;== func [b c][foo 1 b c] ; the result is a function having two open arguments b and c
+
+f: c!/doc foo [1] ; this will add a docstring showing that its a curried function from "foo" and how it was curried 
 ;== func ["Curried by: c! foo [1]" b c][foo 1 b c]
 
-f: c!/anon foo [1]
+f: c!/anon foo [1] ; this will specify the curry function to use an anonymous copy of the original function
 ;== func [b c /local l1 l2 l3 r][func [
 ;    "a foo function"
 ;    a b [any-t...
-?? f
+?? f ; you can check how the function's code were actually embedded in the curried function
 
-f: c! foo [1 _ 2 /add3 _ _ 3]
+;-- testing skipped arguments and refinements
+
+f: c! foo [1 _ 2 /add3 _ _ 3] ; this will fix a, skip b, and fix c. we use a refinement "/add3" which have three more arguments, but we'll skip the first two of them
 ;== func [b t1 t2][foo/add3 1 b 2 t1 t2 3]
 
-f: c! foo [1 _ 2 /add3 _ _ 3 /square/neg]
+f: c! foo [1 _ 2 /add3 _ _ 3 /square/neg] ; this shows we're using more refinements. refinement that don't have args can be written directly with no space needed in-between
 ;== func [b t1 t2][foo/add3/square/neg 1 b 2 t1 t2 3]
 
-print f 2 3 4
+print f 2 3 4 ; just test if the actual calculation is correct
 ;== 225
 
-reverse: c! sort [_ /reverse]
+;-- currying some Red's natives functions
+reverse: c! sort [_ /reverse] ; we're curried a native function "sort" using its "reverse" refinement to alter it's behavior and given a new name "reverse" to it
 ;== func [
 ;    series
 ;][sort/reverse
 ;series]
 
-print reverse [2 5 3 4 6 3 0 9]
+print reverse [2 5 3 4 6 3 0 9] ; testing it
 ;== [9 6 5 4 3 3 2 0]
 
-stack: copy []
-;== []
+;-- we're showing a simple application of currying native functions to create an abstraction of code my a special use case, enhancing readability and conciseness
 
-print mold push: c! append [stack _]
+stack: copy [] ; our stack data structure is a block
+
+push: c! append [stack _] ; we create a "push" function accepting one argument to push it to our stack
+?? push ; this will display the resulting code of this function
 ;== func [
 ;    value
 ;][append stack
 ;value]
 
-print mold pop: c! take [stack /last]
+pop: c! take [stack /last] ; we create a "pop" function to pop it from our stack
+?? pop ; to show the code
 ;== func [][take/last stack]
 
-print push 3 push 5
+; some neat operation using the curried functions: push and pop
+
+print push 3 push 5 
 ;== [3 5]
 
 print push pop * pop
@@ -83,3 +97,4 @@ print x: pop
 
 print push pop / x
 ;== [7.5]
+

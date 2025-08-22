@@ -91,8 +91,9 @@ parse-spec: function [
 					put refs current-ref copy [] ; initialize with empty block
 				]
 			)
+			| 
 			; capture arguments (including multi-refinement args)
-			| if (all [not in-local? not in-extern?]) [
+			if (all [not in-local? not in-extern?]) [
 				set arg word! (
 					either current-ref 
 						[append select refs current-ref arg] ; add to refinement's args
@@ -204,7 +205,7 @@ curry: function [
 
 ;=== Public API ===
 
-curry: :currying/curry ; the currying func
-c!: :curry ; short-cut name for it
+curry:	:currying/curry ; the currying func
+c!:		:curry ; short-cut name for it
 
 ;=== end of Currying module ===
