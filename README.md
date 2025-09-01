@@ -115,7 +115,7 @@ f1: curry/anon foo [1 2]  ; using annonymous copy
 ;== func [c][func [a b c] [a + b + c] 1 2 c]
 ```
 
-### Multiple Currying
+### Nested Currying
 
 ```red
 foo: func [a b c d e f][a + b + c + d + e + f]	; original function
@@ -162,10 +162,7 @@ print f 2 3 4 ; call the curried function and give it's open arguments: b, t1 an
 ;== 225
 ```
 
-
 ---
-
-
 
 ## 🔍 Feature Comparison with Other Languages & Libraries
 
