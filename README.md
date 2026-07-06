@@ -1,5 +1,7 @@
 # Currying for Red
 
+NOTE: Obsolete, go check https://github.com/hinjolicious/functional instead!
+
 Currying support for the [Red programming language](https://www.red-lang.org/).
 This library provides a convenient way to **fix arguments**, **skip placeholders**, and **use refinements** when building specialized versions of existing functions.
 
